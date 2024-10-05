@@ -7,7 +7,6 @@ fi
 
 #alias
 alias vim='nvim'
-alias szsh='source ~/.zshrc'
 
 alias cat='bat'
 
@@ -39,11 +38,8 @@ nsethp() {
   unset AWS_SESSION_TOKEN
 }
 
-
-
-
 # source ~/.zshrc
-alias scz="source $HOME/.zshrc"
+alias szsh="source $HOME/.zshrc"
 
 # translates to | grep data
 alias -g G="| grep"
