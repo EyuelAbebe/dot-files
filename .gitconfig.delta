@@ -1,0 +1,32 @@
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    light = false
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = gruvbox-dark
+    plus-style = "syntax #2d4f2f"
+    minus-style = "syntax #4f2d2d"
+    plus-emph-style = "syntax #44664d"
+    minus-emph-style = "syntax #664444"
+    line-numbers-left-format = "{nm:>4}┊"
+    line-numbers-right-format = "{np:>4}│"
+    line-numbers-left-style = "#565f89"
+    line-numbers-right-style = "#565f89"
+    line-numbers-minus-style = "#f7768e"
+    line-numbers-plus-style = "#9ece6a"
+    file-style = "bold yellow"
+    file-decoration-style = "yellow ul"
+    hunk-header-style = "file line-number syntax"
+    hunk-header-decoration-style = "bold purple ul"
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
