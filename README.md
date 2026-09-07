@@ -1,55 +1,129 @@
-# My Dotfiles
+# Dotfiles
 
-Clean, modern terminal configuration with Oh-My-Zsh and Powerlevel10k.
+Modern terminal setup with Oh-My-Zsh, Powerlevel10k, and enhanced CLI tools.
 
-## What's Included
+## Quick Start
 
-- **`.zshrc`** - Zsh configuration with modern CLI tools and aliases
-- **`.p10k.zsh`** - Powerlevel10k theme configuration (Lean style)
-- **`.gitconfig.delta`** - Git delta configuration for beautiful diffs
-- **`.tmux.conf`** - Tmux configuration
-- **`nvim/`** - Neovim configuration
+```bash
+# 1. Install prerequisites (see below)
+# 2. Clone this repo
+git clone git@github.com:EyuelAbebe/dot-files.git ~/dotfiles
+cd ~/dotfiles
 
-## Features
+# 3. Backup existing configs
+cp ~/.zshrc ~/.zshrc.backup 2>/dev/null
+cp ~/.gitconfig ~/.gitconfig.backup 2>/dev/null
 
-### Modern CLI Tools
-- **eza** - Better `ls` with icons and git integration
-- **bat** - Better `cat` with syntax highlighting
-- **fzf** - Fuzzy finder with file/history search
-- **fd** - Better `find`
-- **ripgrep** - Better `grep`
-- **zoxide** - Smart directory jumper
-- **git-delta** - Beautiful git diffs
+# 4. Copy configs
+cp .zshrc ~/
+cp .p10k.zsh ~/
+cp .gitconfig.delta ~/
+cp .tmux.conf ~/
+cp -r nvim/ ~/.config/
 
-### Oh-My-Zsh Plugins
-- git
-- docker & docker-compose
-- npm, node, python, terraform, kubectl
-- zsh-syntax-highlighting
-- zsh-autosuggestions
-- sudo, copyfile, copypath, extract, z
+# 5. Include delta in gitconfig
+echo -e '\n[include]\n    path = ~/.gitconfig.delta' >> ~/.gitconfig
 
-### Prompt Features
-- Two-line prompt layout
-- Full directory path on line 1
-- Current directory + git info on line 2
-- Git branch with status indicators
-- Ahead/behind tracking
-- Modified/staged/untracked file counts
-- Execution time and status on right
+# 6. Reload shell
+exec zsh
+```
+
+## Configuration Files
+
+<details>
+<summary><b>.zshrc</b> - Main shell configuration</summary>
+
+### Features
+- Two-line prompt: full path → directory name + git status
+- Modern CLI tools integration (eza, bat, fzf, fd, ripgrep, zoxide)
+- Oh-My-Zsh plugins (git, docker, python, terraform, kubectl, etc.)
+- Custom aliases and functions
+- FZF fuzzy finding with previews
+- Smart history and completion
+
+### Key Aliases
+**Navigation:** `..` `...` `docs` `projects` | **Files:** `ls` `ll` `lt` `cat` | **Git:** `gs` `glog` `fgb` | **Docker:** `dps` `dcu` `dcd`
+
+### Functions
+- `mkcd <dir>` - Create and enter directory
+- `proj` - Fuzzy project switcher
+- `killport <port>` - Kill process on port
+- `weather [city]` - Get weather
+- `help` - Show full terminal guide
+</details>
+
+<details>
+<summary><b>.p10k.zsh</b> - Powerlevel10k theme</summary>
+
+### Prompt Layout
+```
+~/Documents/projects/personal/projects/dot-files        ✓ 0.5s  12:45
+dot-files  master ⇡1 ✗2 ➜
+```
+
+**Line 1:** Full directory path | Status | Execution time | Clock
+**Line 2:** Directory name | Git branch | Changes | Prompt arrow
+
+### Indicators
+- `⇡1` / `⇣1` - Commits ahead/behind
+- `✗2` - Untracked files
+- `+3` - Staged files
+- `!1` - Modified files
+- Green arrow = success | Red arrow = error
+
+### Customization
+```bash
+p10k configure  # Run interactive configurator
+```
+</details>
+
+<details>
+<summary><b>.gitconfig.delta</b> - Enhanced git diffs</summary>
+
+### Features
+- Syntax-highlighted diffs
+- Side-by-side diff view
+- Line numbers
+- File hyperlinks
+- Better merge conflict resolution
+
+### Usage
+Automatically used with `git diff`, `git log -p`, `git show`
+</details>
+
+<details>
+<summary><b>.tmux.conf</b> - Tmux configuration</summary>
+
+### Features
+- Modern key bindings
+- Mouse support
+- Status bar customization
+- Vi mode navigation
+- Plugin manager integration
+</details>
+
+<details>
+<summary><b>nvim/</b> - Neovim configuration</summary>
+
+### Features
+- LSP support
+- Tree-sitter syntax
+- File explorer
+- Fuzzy finder
+- Git integration
+- Custom key mappings
+</details>
 
 ## Prerequisites
 
-Install these tools first:
-
 ```bash
-# Homebrew (if not installed)
+# Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Oh-My-Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Powerlevel10k
+# Powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # Zsh plugins
@@ -57,156 +131,35 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Modern CLI tools
-brew install eza bat fzf fd ripgrep zoxide git-delta
+brew install eza bat fzf fd ripgrep zoxide git-delta neovim tmux
+
+# Nerd Font (for icons)
+brew tap homebrew/cask-fonts
+brew install font-meslo-lg-nerd-font
 ```
 
-## Installation
-
-1. **Backup your existing configs:**
-```bash
-cp ~/.zshrc ~/.zshrc.backup
-cp ~/.gitconfig ~/.gitconfig.backup
-```
-
-2. **Clone this repo:**
-```bash
-git clone git@github.com:EyuelAbebe/dot-files.git ~/dotfiles
-cd ~/dotfiles
-```
-
-3. **Copy configs to home directory:**
-```bash
-cp .zshrc ~/
-cp .p10k.zsh ~/
-cp .gitconfig.delta ~/
-```
-
-4. **Add delta to your gitconfig:**
-```bash
-echo '[include]' >> ~/.gitconfig
-echo '    path = ~/.gitconfig.delta' >> ~/.gitconfig
-```
-
-5. **Reload your shell:**
-```bash
-exec zsh
-```
-
-## Key Aliases
-
-### Navigation
-- `..` `...` `....` - Quick parent directory navigation
-- `docs` `downloads` `desktop` `projects` - Quick navigation shortcuts
-- `z <keyword>` - Jump to frequent directories
-
-### File Operations
-- `ls` `ll` `la` - Beautiful file listings with icons
-- `lt` - Tree view
-- `lsg` - File listing with git status
-- `cat` - Syntax highlighted file viewing
-- `tree [depth]` - Directory tree view
-
-### Git
-- `gs` - Git status (compact)
-- `glog` - Beautiful git log graph
-- `glg` - Detailed git log with author
-- `gtree` - Quick git tree view
-- `gbr` - Show branches with tracking
-- `fgb` - Fuzzy git branch checkout
-
-### Docker
-- `dps` - Formatted docker ps
-- `dimg` - Formatted docker images
-- `dcu` `dcd` - docker-compose up/down
-- `dcl` - Follow docker-compose logs
-
-### Productivity
-- `killport <port>` - Kill process on port
-- `weather [city]` - Get weather
-- `myip` - Show public IP
-- `help` - Show terminal guide
-
-### Functions
-- `mkcd <dir>` - Create directory and cd into it
-- `backup <file>` - Create .bak copy
-- `gitclone <url>` - Clone and cd into repo
-- `proj` - Interactive project switcher
+Set your terminal font to **MesloLGS NF**.
 
 ## FZF Keybindings
 
 - `CTRL+T` - Fuzzy file search with preview
 - `CTRL+R` - Fuzzy history search
-- `ALT+C` - Fuzzy directory search with tree preview
-- `CTRL+/` - Toggle preview window
-
-## Customization
-
-### Change Prompt Style
-
-Run the configurator to customize your prompt:
-```bash
-p10k configure
-```
-
-### Modify Aliases
-
-Edit `~/.zshrc` and add your custom aliases at the bottom:
-```bash
-alias myalias='command'
-```
-
-Then reload:
-```bash
-source ~/.zshrc
-```
-
-## Theme Preview
-
-Your prompt will look like:
-```
-~/Documents/projects/personal/projects/OneSend        ✓ 0.5s  12:45
-OneSend  main ⇡1 ✗2 ➜
-```
-
-- Line 1: Full path + status + time
-- Line 2: Directory name + git branch + changes + arrow
-- Green arrow = success, Red arrow = error
-- `⇡1` = 1 commit ahead
-- `✗2` = 2 untracked files
-
-## Updating
-
-Pull latest changes:
-```bash
-cd ~/dotfiles
-git pull
-cp .zshrc ~/
-cp .p10k.zsh ~/
-source ~/.zshrc
-```
+- `ALT+C` - Fuzzy directory search
+- `CTRL+/` - Toggle preview
 
 ## Troubleshooting
 
-### Icons not showing?
-Install a Nerd Font:
+**Icons not showing?** Ensure your terminal uses "MesloLGS NF" font.
+
+**Slow startup?** Debug with `zsh -xv`
+
+**Plugin missing?** Check `ls ~/.oh-my-zsh/custom/plugins/`
+
+## Updating
+
 ```bash
-brew tap homebrew/cask-fonts
-brew install font-meslo-lg-nerd-font
+cd ~/dotfiles && git pull
+cp .zshrc .p10k.zsh .gitconfig.delta .tmux.conf ~/
+cp -r nvim/ ~/.config/
+exec zsh
 ```
-Then set your terminal to use "MesloLGS NF" font.
-
-### Slow startup?
-The instant prompt should make it fast. If still slow, check:
-```bash
-zsh -xv  # Debug startup
-```
-
-### Plugin not working?
-Verify plugin is installed:
-```bash
-ls ~/.oh-my-zsh/custom/plugins/
-```
-
-## License
-
-MIT - Feel free to use and modify!

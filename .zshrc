@@ -494,8 +494,3 @@ alias cheatsheet='help-terminal'
 # Custom Aliases (from .bash_aliases if exists)
 # ============================================================================
 [[ -s "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
-
-# Custom function to show just current directory name
-prompt_custom_dir() {
-  p10k segment -f 39 -t "${PWD##*/}"
-}
